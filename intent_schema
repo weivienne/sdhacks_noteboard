@@ -1,0 +1,369 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "GetMessagesIntent",
+      "samples": [
+        "to read my notes",
+        "What are my notes",
+        "to read notes for {NAME}",
+        "Are there any messages for me",
+        "Are there any messages for {NAME}",
+        "to get my messages",
+        "to get my notes",
+        "to get notes for me",
+        "to get messages for me",
+        "read my messages",
+        "to read my messages",
+        "for my messages",
+        "for my notes",
+        "for {NAME}",
+        "for {NAME} notes",
+        "for {NAME} messages",
+        "to load my notes",
+        "to load my messages",
+        "to load {NAME} notes",
+        "to load {NAME} messages",
+        "to start reading my notes",
+        "to start reading my messages"
+      ],
+      "slots": [
+        {
+          "name": "NAME",
+          "type": "AMAZON.US_FIRST_NAME",
+          "samples": [
+            "{NAME}"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SaveMessage",
+      "samples": [
+        "to post a note",
+        "to post a message",
+        "to ask {NAME} to {COMMAND}",
+        "to leave a message",
+        "to leave a note",
+        "to send a message",
+        "to send a note",
+        "to write a message",
+        "to write a note"
+      ],
+      "slots": [
+        {
+          "name": "NAME",
+          "type": "AMAZON.US_FIRST_NAME",
+          "samples": [
+            "{NAME}"
+          ]
+        },
+        {
+          "name": "COMMAND",
+          "type": "REQUEST",
+          "samples": [
+            "{COMMAND}"
+          ]
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "REQUEST",
+      "values": [
+        {
+          "id": null,
+          "name": {
+            "value": "please fucking take out your trash smiley face",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "please fucking take out your trash today",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "please fucking take out your trash",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "please take out your trash",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "take out your trash",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "clean your mess",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "call me",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "do something",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "get out of my room",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "stay away from me",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "call the police",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "sweep the fucking floor",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "lock the front door",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "clean your dishes",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "wipe down the counter",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "answer my calls",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "don't come into my room",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "pick up your phone",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "stop eating my ice cream",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "move your shit",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "vacuum the living room",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "wipe the table",
+            "synonyms": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "ROOMIES",
+      "values": [
+        {
+          "id": null,
+          "name": {
+            "value": "Chris",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "Johnny",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "Vicky",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "Vivienne",
+            "synonyms": []
+          }
+        }
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "id": "Elicit.Intent-GetMessagesIntent.IntentSlot-NAME",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Who is this?"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-SaveMessage.IntentSlot-NAME",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Who is this note for?"
+        }
+      ]
+    },
+    {
+      "id": "Confirm.Intent-SaveMessage.IntentSlot-NAME",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "You said {NAME}, is this correct?"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-SaveMessage.IntentSlot-COMMAND",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "What should the note say?"
+        }
+      ]
+    }
+  ],
+  "dialog": {
+    "version": "1.0",
+    "intents": [
+      {
+        "name": "GetMessagesIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "NAME",
+            "type": "AMAZON.US_FIRST_NAME",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-GetMessagesIntent.IntentSlot-NAME"
+            }
+          }
+        ]
+      },
+      {
+        "name": "SaveMessage",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "NAME",
+            "type": "AMAZON.US_FIRST_NAME",
+            "elicitationRequired": true,
+            "confirmationRequired": true,
+            "prompts": {
+              "elicit": "Elicit.Intent-SaveMessage.IntentSlot-NAME",
+              "confirm": "Confirm.Intent-SaveMessage.IntentSlot-NAME"
+            }
+          },
+          {
+            "name": "COMMAND",
+            "type": "REQUEST",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-SaveMessage.IntentSlot-COMMAND"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
