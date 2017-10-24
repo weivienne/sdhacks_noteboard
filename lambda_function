@@ -1,0 +1,137 @@
+/**
+ * Credits:
+ * Vivienne O.
+ * Johnny N.
+ * Chris W.
+ * Vicky O.
+ **/
+/**
+ * This is the lambda function for the Passive-Aggressive Aggressive Noteboard
+ * The Intent Schema and Sample Utterances for this skill are located at
+ * https://github.com/weivienne/sdhacks_noteboard
+ **/
+
+'use strict';
+
+const Alexa = require('alexa-sdk');
+var AWS = require('aws-sdk');
+var docClient = new AWS.DynamoDB.DocumentClient();
+const APP_ID = 'amzn1.ask.skill.01fba76c-27d2-4858-8421-e455a28c1964';  // replace with your app ID
+
+const handlers = {
+    'SaveMessage': function() {
+         if (this.event.request.dialogState == "STARTED" || this.event.request.dialogState == "IN_PROGRESS"){
+            this.context.succeed({
+                "response": {
+                    "directives": [
+                        {
+                            "type": "Dialog.Delegate"
+                        }
+                    ],
+                    "shouldEndSession": false
+                },
+                "sessionAttributes": {}
+            });
+        }else{
+
+            var tableName = "Messages";
+            
+            console.log("inserting into table");
+            
+            var item = {
+                 "roommates": this.event.request.intent.slots.NAME.value,
+                 "message":  this.event.request.intent.slots.COMMAND.value,
+                 "date": Date.now().toString()
+            };
+            
+            var params = {
+                 TableName:tableName, 
+                 Item: item
+            };
+            console.log(JSON.stringify(params));
+             docClient.put(params).promise().then((result) => {
+                 console.log("success " + JSON.stringify(result));
+                 this.emit(':tell', 'I will tell ' + item.roommates + ' to ' + item.message);
+             },
+               (error) => {
+                    console.log("error " + JSON.stringify(error));
+                    this.emit(':tell', 'error');
+             });
+        }
+    },
+    
+    'GetMessagesIntent': function() {
+        if (this.event.request.dialogState == "STARTED" || this.event.request.dialogState == "IN_PROGRESS"){
+            this.context.succeed({
+                "response": {
+                    "directives": [
+                        {
+                            "type": "Dialog.Delegate"
+                        }
+                    ],
+                    "shouldEndSession": false
+                },
+                "sessionAttributes": {}
+            });
+        }
+        else{
+            var beginning_sass = ["I swear for the last time ,",
+            "I've said it a million times, please fucking ", "For the love of God, please ",
+            "Please ", "For the last time, ", "How many times do I have to tell you, ", "Please fucking ", ""];
+            var ending_sass = [", not that I'm mad or anything. ", ", you piece of shit. ",
+            ". Smiley face ", ", or whatever. I don't care. ", ". Thanks sweetheart. ", 
+            " thanks. ", ", you land whale. ", ", don't make me tell you this again.",
+            ", you are a disappointment to your family.", ", you potato.", ", you are a disgrace."];
+    
+    
+            let roommates = this.event.request.intent.slots.NAME.value;
+    
+            var params = {
+                    TableName: "Messages",
+                    KeyConditionExpression: "#roommates = :roommates",
+                    IndexName: "roommates-index",
+                    ExpressionAttributeNames:{
+                        "#roommates": "roommates"
+                    },
+                    ExpressionAttributeValues: {
+                        ":roommates":roommates
+                    }
+                };
+            console.log("getting messages");
+             docClient.query(params).promise().then((result) => {
+                 console.log("success " + JSON.stringify(result));
+                 let output = JSON.stringify(result);
+                 output = JSON.parse(output);
+                 var emit_output = 'You have ' + output.Count + ' messages. ';
+                 var count = 0;
+                 output.Items.forEach((element) => {
+                    var beginning_num = getRandomNum(0, beginning_sass.length);
+                    var ending_num = getRandomNum(0, ending_sass.length);
+                    count++;
+                    emit_output += 'Message ' + count + ', ' + beginning_sass[beginning_num] +
+                    element.message + ending_sass[ending_num];
+                });
+                if(count === 0){
+                    this.emit(':tell', 'You have no messages!');
+                }
+                else{
+                    this.emit(':tell', emit_output);   
+                }
+             },
+               (error) => {
+                    console.log("error " + JSON.stringify(error));
+             });
+        }
+    },
+};
+
+function getRandomNum(min, max) {
+    return Math.floor(Math.random() * max) + min;
+}
+
+exports.handler = function (event, context) {
+    const alexa = Alexa.handler(event, context);
+    alexa.appId = APP_ID;
+    alexa.registerHandlers(handlers);
+    alexa.execute();
+};
